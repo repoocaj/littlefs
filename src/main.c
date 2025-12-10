@@ -178,7 +178,7 @@ static int littlefs_mount(struct fs_mount_t *mp)
 	}
 	LOG_PRINTK("%s mount: %d\n", mp->mnt_point, rc);
 #else
-	LOG_PRINTK("%s automounted\n", mp->mnt_point);
+	LOG_PRINTK("%s was automounted\n", mp->mnt_point);
 #endif
 
 	return 0;
