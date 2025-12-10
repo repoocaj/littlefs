@@ -27,6 +27,7 @@ static int lsdir(const char *path)
 	int res;
 	struct fs_dir_t dirp;
 	static struct fs_dirent entry;
+	bool printed_nl = false;
 
 	fs_dir_t_init(&dirp);
 
@@ -52,10 +53,17 @@ static int lsdir(const char *path)
 
 		if (entry.type == FS_DIR_ENTRY_DIR) {
 			LOG_PRINTK("[DIR ] %s\n", entry.name);
+			printed_nl = true;
 		} else {
 			LOG_PRINTK("[FILE] %s (size = %zu)\n",
 				   entry.name, entry.size);
+			printed_nl = true;
 		}
+	}
+
+	if (!printed_nl) {
+		/* Make sure at least one newline was printed to make the log output easier to read. */
+		LOG_PRINTK("\n");
 	}
 
 	/* Verify fs_closedir() */
@@ -244,9 +252,21 @@ int main(void)
 		   sbuf.f_bsize, sbuf.f_frsize,
 		   sbuf.f_blocks, sbuf.f_bfree);
 
+	rc = lsdir("/");
+	if (rc < 0) {
+		LOG_PRINTK("FAIL: lsdir %s: %d\n", "/", rc);
+		goto out;
+	}
+
 	rc = lsdir(mountpoint->mnt_point);
 	if (rc < 0) {
 		LOG_PRINTK("FAIL: lsdir %s: %d\n", mountpoint->mnt_point, rc);
+		goto out;
+	}
+
+	rc = lsdir("/log");
+	if (rc < 0) {
+		LOG_PRINTK("FAIL: lsdir %s: %d\n", "/log", rc);
 		goto out;
 	}
 
