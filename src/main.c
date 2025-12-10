@@ -259,7 +259,7 @@ static int littlefs_flash_erase(unsigned int id)
 	flash_area_close(pfa);
 	return rc;
 }
-#define PARTITION_NODE DT_NODELABEL(lfs1)
+#define PARTITION_NODE DT_NODELABEL(app_fs)
 
 #if DT_NODE_EXISTS(PARTITION_NODE)
 FS_FSTAB_DECLARE_ENTRY(PARTITION_NODE);
