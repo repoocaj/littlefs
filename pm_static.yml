@@ -1,0 +1,11 @@
+# pm_static.yml
+# Assuming an external flash chip is connected and identified as 'external_flash'
+lfs_part1:
+  address: 0x0
+  region: external_flash
+  size: 0x10000         # 64 kB
+
+lfs_part2:
+  address: 0x10000
+  region: external_flash
+  size: 0x100000        # 1 MB
