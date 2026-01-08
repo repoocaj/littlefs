@@ -264,12 +264,6 @@ int main(void)
 		goto out;
 	}
 
-	rc = lsdir("/log");
-	if (rc < 0) {
-		LOG_PRINTK("FAIL: lsdir %s: %d\n", "/log", rc);
-		goto out;
-	}
-
 	rc = littlefs_increase_infile_value(fname1);
 	if (rc) {
 		goto out;

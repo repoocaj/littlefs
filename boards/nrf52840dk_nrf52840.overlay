@@ -20,18 +20,6 @@
 			lookahead-size = <32>;
 			block-cycles = <512>;
 		};
-
-		log_fs: log_fs{
-            compatible = "zephyr,fstab,littlefs";
-            mount-point = "/log";
-            partition = <&log_fs_part>;
-            automount;
-            read-size = <16>;
-            prog-size = <16>;
-            cache-size = <4096>;
-            lookahead-size = <64>;
-            block-cycles = <128>;
-        };
 	};
 };
 
@@ -44,11 +32,6 @@
 		app_fs_part: partition@0 {
 			label = "storage";
 			reg = <0x00000000 0x00010000>;
-		};
-
-		log_fs_part: partition@10000 {
-			label = "logs";
-			reg = <0x00010000 0x00050000>;
 		};
 	};
 };
